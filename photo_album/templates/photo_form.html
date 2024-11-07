@@ -1,0 +1,31 @@
+<!-- templates/formulario_foto.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ 'Editar' if foto else 'Agregar' }} Foto</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>{{ 'Editar' if foto else 'Agregar' }} Foto</h1>
+        <a href="{{ url_for('main.ver_foto') }}" class="btn">Volver al Álbum</a>
+
+    </header>
+
+    <main>
+        <form action="" method="post" class="photo-form">
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo" value="{{ foto.titulo if foto else '' }}" required>
+
+            <label for="descripcion">Descripción:</label>
+            <textarea id="descripcion" name="descripcion">{{ foto.descripcion if foto else '' }}</textarea>
+
+            <label for="imagen">Imagen (URL o base64):</label>
+            <input type="text" id="imagen" name="imagen" value="{{ foto.imagen if foto else '' }}" required>
+
+            <button type="submit" class="btn">{{ 'Actualizar' if foto else 'Agregar' }} Foto</button>
+        </form>
+    </main>
+</body>
+</html>

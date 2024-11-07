@@ -1,0 +1,39 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Álbum de Fotos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Álbum de Fotos</h1>
+        <a href="{{ url_for('main.añadir_photo') }}" class="btn">Agregar Nueva Foto</a>
+
+    </header>
+    
+    <main>
+        <div class="photo-grid">
+            {% for foto in fotos %}
+                <div class="photo-card">
+                    <h2>{{ foto.titulo }}</h2>
+                    {% if foto.imagen %}
+                        <img src="{{ foto.imagen }}" alt="{{ foto.titulo }}" class="photo-img">
+                    {% else %}
+                        <img src="default.jpg" alt="Imagen no disponible" class="photo-img">
+                    {% endif %}
+                    <p>{{ foto.descripcion }}</p>
+                    <div class="actions">
+                        <a href="{{ url_for('main.subir_foto', foto_id=foto.id) }}" class="btn edit-btn">Editar</a>
+
+                        <form action="{{ url_for('main.eliminar_foto', foto_id=foto.id) }}" method="post" style="display:inline;">
+                            <button type="submit" class="btn delete-btn">Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>
